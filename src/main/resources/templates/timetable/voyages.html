@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+	<head>
+		<title>FastRail - список поездов</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="HandheldFriendly" content="true">
+		<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/static/css/bootstrap-responsive.min.css">
+		<link rel="stylesheet" type="text/css" href="/static/css/index.css">
+	</head>
+	<body>
+		<header>
+			<nav class="navbar">
+				<div class="navbar-inner">
+					<div class="container">
+						<a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</a>
+						<a class="brand" href="/"><img src="/static/img/logo.svg"><span class="brand-name">FastRail</span></a>
+						<div class="nav-collapse collapse navbar-responsive-collapse">
+							<ul class="nav">
+								<li class="divider-vertical"></li>
+								<li class="active"><a href="timetable">Расписание поездов</a></li>
+								<li class="divider-vertical"></li>
+								<li><a href="board">Виртуальное табло</a></li>
+							</ul>
+							<ul class="nav pull-right">
+							{{#if let Some(name) = username.as_ref() }}
+								<li class="divider-vertical"></li>
+								<li><a href="/account"><b>{{ name }}</b></a></li>
+								<li class="divider-vertical"></li>
+								<li><a href="/logout">Выход</a></li>
+							{{else}}
+								<li class="divider-vertical"></li>
+								<li><a href="/register">Регистрация</a></li>
+								<li class="divider-vertical"></li>
+								<li><a href="/login">Вход</a></li>
+							{{/if}}
+							</ul>
+						</div><!-- /.nav-collapse -->
+					</div>
+				</div><!-- /navbar-inner -->
+			</nav><!-- /navbar -->
+		</header>
+		<main>
+			<div class="well">
+				<h4>Рейсы на {{ date }}</h4>
+				<form action="buy" method="GET">
+					<table class="table table-striped">
+						<tr>
+							<th></th>
+							<th>Номер</th>
+							<th>Тип</th>
+							<th>Маршрут</th>
+							<th colspan="2">Отправление</th>
+							<th colspan="2">Прибытие</th>
+							<th>В пути</th>
+						</tr>
+						{{#if voyages.is_empty()}}
+						<tr>
+							<td colspan="9">Поездов, следующих по данному 
+							маршруту, не найдено</td>
+						</tr>
+						{{/if}}
+						{{#each voyages}}
+						<tr>
+							<td>
+								<input type="radio" name="voyage_id" value="{{ this.voyage_id }}">
+							</td>
+							<td>{{ this.train_num }}</td>
+							<td>{{ this.train_type }}</td>
+							<td>{{ this.first_station }} - {{ this.last_station }}</td>
+							<td>{{ this.from_station }}
+							<td>{{ this.depart_time.format("%H:%M").to_string() }}</td>
+							<td>{{ this.to_station }}</td>
+							<td>{{ this.arrival_time.format("%H:%M").to_string() }}</td>
+							<td>{{ this.on_the_way_time.format("%H:%M").to_string() }}</td>
+						</tr>
+						{{/each}}
+					</table>
+					<input type="hidden" name="from" value="{{ from }}">
+					<input type="hidden" name="to" value="{{ to }}">
+				{{#if !voyages.is_empty()}}
+					<button type="submit" class="btn btn-success">Купить билет</button>
+				{{/if}}
+				</form>
+			</div>
+		</main>
+		<footer>
+			<img src="/static/img/copyleft.svg" class="copyleft"> <span>FastRail 2019</span>
+		</footer>
+		<script src="/static/js/jquery-2.2.4.min.js"></script>
+		<script src="/static/js/bootstrap.min.js"></script>
+	</body>
+</html>

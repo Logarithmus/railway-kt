@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+	<head>
+		<title>FastRail - Панель администратора</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="HandheldFriendly" content="true">
+		<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/static/css/bootstrap-responsive.min.css">
+		<link rel="stylesheet" type="text/css" href="/static/css/index.css">
+	</head>
+	<body>
+		<header>
+			<nav class="navbar">
+				<div class="navbar-inner">
+					<div class="container">
+						<a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</a>
+						<a class="brand" href="/"><img src="/static/img/logo.svg"><span class="brand-name">FastRail</span></a>
+						<div class="nav-collapse collapse navbar-responsive-collapse">
+							<ul class="nav">
+								<li class="divider-vertical"></li>
+								<li><a href="timetable">Расписание поездов</a></li>
+								<li class="divider-vertical"></li>
+								<li><a href="board">Виртуальное табло</a></li>
+							</ul>
+							<ul class="nav pull-right">
+								<li class="divider-vertical"></li>
+								<li><a href="/account"><b>{{ username.as_ref().unwrap() }}</b></a></li>
+								<li class="divider-vertical"></li>
+								<li><a href="/logout">Выход</a></li>
+							</ul>
+						</div><!-- /.nav-collapse -->
+					</div>
+				</div><!-- /navbar-inner -->
+			</nav><!-- /navbar -->
+		</header>
+		<main>
+		<div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+			<div class="well">
+				<h4>Управление станциями</h4>
+			{{#if is_station_error }}
+				<div class="alert alert-error">
+					Ошибка
+				</div>
+			{{else if is_station_success }}
+				<div class="alert alert-success">
+					Успешно
+				</div>
+			{{/if}}
+				<form action="admin" method="get">
+					<datalist id="stations">
+					{{#each stations }}
+						<option value="{{ this }}">{{ this }}</option>
+					{{/each}}
+					</datalist>
+					<div>
+						<input type="text" list="stations" name="old_station_name" placeholder="Станция">
+					</div>
+					<div>
+						<select name="station_action">
+							<option value="rename">Изменить</option>
+							<option value="delete">Удалить</option>
+							<option value="create" selected>Создать</option>
+						</select>
+					</div>
+					<div>
+						<input type="text" name="new_station_name" placeholder="Новое название">
+					</div>
+					<div>
+						<button type="submit" class="btn btn-primary" name="submit_station" value="1">ОК</button>
+					</div>
+				</form>
+			</div>
+			<div class="well">
+				<h4>Управление типами вагонов</h4>
+			{{#if is_carriage_type_error }}
+				<div class="alert alert-error">
+					Ошибка
+				</div>
+			{{else if is_carriage_type_success }}
+				<div class="alert alert-success">
+					Успешно
+				</div>
+			{{/if}}
+				<form action="admin" method="get">
+					<datalist id="carriage_types">
+					{{#each carriage_types }}
+						<option value="{{ this }}">{{ this }}</option>
+					{{/each}}
+					</datalist>
+					<div>
+						<input type="text" list="carriage_types" name="old_carriage_type" placeholder="Тип вагона">
+					</div>
+					<div>
+						<select name="carriage_type_action">
+							<option value="rename">Изменить</option>
+							<option value="delete">Удалить</option>
+							<option value="create" selected>Создать</option>
+						</select>
+					</div>
+					<div>
+						<input type="text" name="new_carriage_type" placeholder="Новое название">
+					</div>
+					<div>
+						<button type="submit" class="btn btn-primary" name="submit_carriage_type" value="1">ОК</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		</main>
+		<footer>
+			<img src="/static/img/copyleft.svg" class="copyleft"> <span>FastRail 2019</span>
+		</footer>
+		<script src="/static/js/jquery-2.2.4.min.js"></script>
+		<script src="/static/js/bootstrap.min.js"></script>
+	</body>
+</html>
