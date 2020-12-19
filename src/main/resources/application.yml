@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: jdbc:mysql://localhost:3306/railway
     driver-class-name: com.mysql.jdbc.Driver
-    username: user
+    username: railway
     password: password
