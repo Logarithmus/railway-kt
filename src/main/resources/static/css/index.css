@@ -1,0 +1,80 @@
+html, body {
+	height: 100%;
+}
+
+body {
+	background: #eee;
+	display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+nav .brand {
+	padding-top: 5px !important;
+	padding-bottom: 5px !important;
+}
+
+nav .brand img {
+	height: 30px;
+}
+
+nav .brand-name {
+	margin-left: 0.5em !important;
+}
+
+nav .divider-vertical {
+	margin: 0 !important;
+}
+
+main {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+main h3 {
+	text-align: center;
+}
+
+form.stations-form {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+form.stations-form input {
+	height: 34px;
+	margin: 5px;
+	display: flex;
+}
+
+form > div {
+	display: flex;
+	justify-content: center;
+}
+
+form.stations-form button {
+	margin: 5px;
+}
+
+.flip-stations {
+	vertical-align: top;
+}
+
+.flip-stations img {
+	height: 1em;
+}
+
+footer {
+	background: #ddd;
+	line-height: 2em;
+	padding: 0.25em 1em;
+}
+
+footer .copyleft {
+	height: 1em;
+	vertical-align: middle;
+}

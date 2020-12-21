@@ -4,3 +4,5 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     username: railway
     password: password
+hibernate:
+  hbm2ddl: validate
